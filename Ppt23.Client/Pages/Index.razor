@@ -1,0 +1,36 @@
+﻿@page "/"
+
+<h1>Hádání čísel</h1>
+<p>
+    Zadej číslo: <input @bind-value="hadaneCislo" @bind-value:event="oninput" />
+</p>
+<button @onclick="Hadam"> Hádám </button>
+
+<p><div>@text</div></p>
+
+<button @onclick="HratZnovu">Hrát znovu</button>
+<p></p>
+
+@code
+{
+    public int hadaneCislo { get; set; }
+    public string text{ get; set; }
+    public int cislo = Random.Shared.Next(1, 101);
+
+
+    public void Hadam()
+    {
+        if (cislo == hadaneCislo)
+        {
+            text = "Uhodl jsi!";
+        }
+        else
+            text = cislo < hadaneCislo ? "MENŠÍ" : "VĚTŠÍ";
+    }
+    public void HratZnovu()
+    {
+        cislo = Random.Shared.Next(1, 101);
+        Hadam();
+    }
+    //public int NahodneCislo() => Random.Shared.Next(1, 101);
+ }
