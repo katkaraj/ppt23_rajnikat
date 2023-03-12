@@ -1,3 +1,63 @@
 ﻿@page "/vybaveni_nemocnice"
 
+@using System.Collections.Generic
+@using Ppt23.Client.ViewModels
+@using Ppt23.Client.Components
+
+<head>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+
 <h1 class="p-8">Vybavení nemocnice</h1>
+<button class="mx-2 my-2 rounded-md bg-teal-500" @onclick="@AddItem">Zobrazit vybavení</button>
+
+
+<div class="grid grid-cols-5 bg-orange-50 p-6">
+    <div class="h-full w-full font-bold">Název</div>
+    <div class="h-full w-full font-bold">Datum nákupu</div>
+    <div class="h-full w-full font-bold">Datum poslední revize</div>
+    <div class="h-full w-full font-bold">Potřebuje revizi?</div>
+    <div></div>
+
+    @foreach (VybaveniVm Vyb in seznamvybaveni)
+     {
+        <div class="h-full w-full">@Vyb.Name</div>
+        <div class="h-full w-full">@Vyb.BoughtDateTime.ToShortDateString() </div>
+        <div class="h-full w-full">@Vyb.LastRevisionDateTime.ToShortDateString()</div>
+        <div class="h-full w-full">@(Vyb.IsRevisionNeeded ? "Ano" : "Ne")</div>
+        <div>
+            <button class="mx-2 my-1 rounded-md bg-red-400" @onclick="() => SmazVybaveni(Vyb)">Smazat</button>
+            <button class="mx-2 my-1 rounded-md bg-teal-500" @onclick="() => Revize(Vyb)">Provést revizi</button>
+        </div>
+
+        //<VybaveRow SmazEventCallBack="@(() => SmazVybaveni(Vyb))" Zreviduj="@(() => Revize(Vyb))" />
+     }
+</div>     
+</body>
+
+@code{
+
+    private List<VybaveniVm> seznamvybaveni { get; set; } = new List<VybaveniVm>();
+    public void AddItem()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            seznamvybaveni.Add(new VybaveniVm());
+        }
+    }
+
+    private async Task SmazVybaveni(VybaveniVm vybaveni)
+    {
+        await Task.Run(() => seznamvybaveni.Remove(vybaveni));
+    }
+
+    private async Task Revize(VybaveniVm vybaveni)
+    {
+        await Task.Run(() => vybaveni.LastRevisionDateTime = DateTime.Today);
+        await Task.Run(() => vybaveni.IsRevisionNeeded = false);
+    }
+}
+
+
