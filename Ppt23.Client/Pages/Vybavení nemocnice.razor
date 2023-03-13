@@ -10,31 +10,28 @@
 
 <body>
 
-<h1 class="p-8">Vybavení nemocnice</h1>
-<button class="mx-2 my-2 rounded-md bg-teal-500" @onclick="@AddItem">Zobrazit vybavení</button>
+<div class="p-8">Vybavení nemocnice  <button class="mx-2 my-2 rounded-md bg-teal-500" @onclick="@AddItem">Zobrazit vybavení</button></div>
 
-
-<div class="grid grid-cols-5 bg-orange-50 p-6">
+<div class="grid grid-cols-1 bg-orange-50 p-6">
+<div class="grid grid-cols-5">
     <div class="h-full w-full font-bold">Název</div>
     <div class="h-full w-full font-bold">Datum nákupu</div>
     <div class="h-full w-full font-bold">Datum poslední revize</div>
     <div class="h-full w-full font-bold">Potřebuje revizi?</div>
     <div></div>
-
+ </div>
     @foreach (VybaveniVm Vyb in seznamvybaveni)
      {
-        <div class="h-full w-full">@Vyb.Name</div>
-        <div class="h-full w-full">@Vyb.BoughtDateTime.ToShortDateString() </div>
-        <div class="h-full w-full">@Vyb.LastRevisionDateTime.ToShortDateString()</div>
-        <div class="h-full w-full">@(Vyb.IsRevisionNeeded ? "Ano" : "Ne")</div>
-        <div>
-            <button class="mx-2 my-1 rounded-md bg-red-400" @onclick="() => SmazVybaveni(Vyb)">Smazat</button>
-            <button class="mx-2 my-1 rounded-md bg-teal-500" @onclick="() => Revize(Vyb)">Provést revizi</button>
-        </div>
+        <div class="grid grid-cols-5 @((Vyb.IsRevisionNeeded) ? "bg-red-200" : "")">
+            <VybaveRow Vyb="Vyb"
+                       SmazEventCallBack="() => SmazVybaveni(Vyb)"
+                       Zreviduj="() => Revize(Vyb)">
 
-        //<VybaveRow SmazEventCallBack="@(() => SmazVybaveni(Vyb))" Zreviduj="@(() => Revize(Vyb))" />
+            </VybaveRow>
+        </div>
      }
-</div>     
+</div>
+ 
 </body>
 
 @code{

@@ -15,17 +15,17 @@
 
 @code {
 
-    [Parameter] public List<VybaveniVm> seznamvybaveni { get; set; }
+    //[Parameter] public List<VybaveniVm> seznamvybaveni { get; set; }
     [Parameter] public VybaveniVm? Vyb { get; set; }
     [Parameter] public EventCallback<VybaveniVm> SmazEventCallBack { get; set; }
     [Parameter] public EventCallback<VybaveniVm> Zreviduj { get; set; }
 
-    private async Task SmazVybaveni(VybaveniVm vybaveni)
+    public async Task SmazVybaveni(VybaveniVm vybaveni)
     {
         await SmazEventCallBack.InvokeAsync(vybaveni);
     }
 
-    private async Task Revize(VybaveniVm vybaveni)
+    public async Task Revize(VybaveniVm vybaveni)
     {
         vybaveni.LastRevisionDateTime = DateTime.Today;
         await Zreviduj.InvokeAsync(vybaveni);
