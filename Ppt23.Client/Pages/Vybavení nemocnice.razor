@@ -10,7 +10,7 @@
 
 <body>
 
-<div class="p-8">Vybavení nemocnice  <button class="mx-2 my-2 rounded-md bg-teal-500" @onclick="@AddItem">Zobrazit vybavení</button></div>
+<div class="p-8">Vybavení nemocnice  <button class=" twtbn p-2 pl-5 pr-5 bg-teal-500 text-gray-100 rounded-lg text-sm focus:border-4 border-blue-300" @onclick="@AddItem">Zobrazit vybavení</button></div>
 
 <div class="grid grid-cols-1 bg-orange-50 p-6">
 <div class="grid grid-cols-5">
@@ -26,7 +26,6 @@
             <VybaveRow Vyb="Vyb"
                        SmazEventCallBack="() => SmazVybaveni(Vyb)"
                        Zreviduj="() => Revize(Vyb)">
-
             </VybaveRow>
         </div>
      }
@@ -39,7 +38,15 @@
     private List<VybaveniVm> seznamvybaveni { get; set; } = new List<VybaveniVm>();
     public void AddItem()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 4; i++)
+        {
+            seznamvybaveni.Add(new VybaveniVm());
+        }
+    }
+
+    public Vybavení_nemocnice()
+    {
+        for (int i = 0; i < 4; i++)
         {
             seznamvybaveni.Add(new VybaveniVm());
         }

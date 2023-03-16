@@ -1,9 +1,20 @@
 ﻿@using Ppt23.Client.ViewModels
 
+@if (Vyb == null) return;
+@if (Vyb.IsInEditMode == null) return;
+
 <head>
     <meta charset="utf-8" />
 </head>
 
+@if (Vyb.IsInEditMode)
+{
+    <div><input type="text" @bind-value="@Vyb.Name" /></div>
+    <div><input type="date"@bind-value="@Vyb.BoughtDateTime" /></div>
+    <div><input type="date" @bind-value="@Vyb.LastRevisionDateTime" /></div>
+    <div class="h-full w-full">@(Vyb.IsRevisionNeeded ? "Ano" : "Ne")</div>
+    <div><button class="mx-2 my-1 rounded-md bg-orange-200" @onclick="() => Vyb.IsInEditMode = false">OK</button></div>
+}
 <div class="h-full w-full">@Vyb.Name</div>
 <div class="h-full w-full">@Vyb.BoughtDateTime.ToShortDateString() </div>
 <div class="h-full w-full">@Vyb.LastRevisionDateTime.ToShortDateString()</div>
@@ -11,11 +22,11 @@
 <div>
     <button class="mx-2 my-1 rounded-md bg-red-400" @onclick="() => SmazVybaveni(Vyb)">Smazat</button>
     <button class="mx-2 my-1 rounded-md bg-teal-500" @onclick="() => Revize(Vyb)">Provést revizi</button>
+    <button class="mx-2 my-1 rounded-md bg-teal-500" @onclick="() => Vyb.IsInEditMode = true ">Upravit</button>
 </div>
 
 @code {
 
-    //[Parameter] public List<VybaveniVm> seznamvybaveni { get; set; }
     [Parameter] public VybaveniVm? Vyb { get; set; }
     [Parameter] public EventCallback<VybaveniVm> SmazEventCallBack { get; set; }
     [Parameter] public EventCallback<VybaveniVm> Zreviduj { get; set; }

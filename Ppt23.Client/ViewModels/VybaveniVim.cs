@@ -7,6 +7,7 @@ namespace Ppt23.Client.ViewModels
         public DateTime BoughtDateTime { get; set; }
         public DateTime LastRevisionDateTime { get; set; }
         public bool IsRevisionNeeded { get; set; }
+        public bool IsInEditMode { get; set; }
 
         public VybaveniVm()
         {
@@ -14,6 +15,7 @@ namespace Ppt23.Client.ViewModels
             this.BoughtDateTime = RandomDateTime();
             this.LastRevisionDateTime = RevisionRandomDateTime(BoughtDateTime, DateTime.Today);
             this.IsRevisionNeeded = MakeRevision();
+            this.IsInEditMode = false;
         }
 
         private static Random rnd = new Random();
@@ -48,5 +50,7 @@ namespace Ppt23.Client.ViewModels
                 return false;
             }
         }
+
+
     }
 }
