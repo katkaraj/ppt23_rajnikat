@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ppt23.Client</title>
+    <base href="/ppt23_rajnikat/" />
+    <link href="css/app.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="cisla.png" />
+    <!-- If you add any scoped CSS files, uncomment the following to load them
+    <link href="Ppt23.Client.styles.css" rel="stylesheet" /> -->
+
+    <style type="text/tailwindcss">
+        @layer components {
+            .twbtn {
+                @apply p-2 pl-5 pr-5 bg-teal-500 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">Načítání</div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+
+</html>
